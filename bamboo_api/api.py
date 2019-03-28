@@ -198,14 +198,18 @@ class BambooAPIClient(object):
         for r in response:
             yield r
 
-    def get_environment_results(self, environment_id, max_result=25):
+    def get_environment_results(self, environment_id, max_result=25, params=False):
         """
         Returns the list of environment results.
         :param environment_id: int
+        :param max_result: int
+        :param params: Dict Add Additional parameters to the api call
         :return: Generator
         """
         # Build starting qs params
         qs = {'max-result': max_result, 'start-index': 0}
+        if params:
+            qs.update(params)
 
         # Get url for results
         url = self._get_url(self.ENVIRONMENT_SERVICE.format(env_id=environment_id))
